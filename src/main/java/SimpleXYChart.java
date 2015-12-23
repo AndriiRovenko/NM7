@@ -13,15 +13,15 @@ import javax.swing.JFrame;
 public class SimpleXYChart {
     public static void Draw(double[] Ex, double[] RK, double[] A) {
 
-        JFrame frame = new JFrame(); //��������� ������ �����
-        frame.setTitle("Lab7"); //��������� �����
+        JFrame frame = new JFrame(); //создаем каркас окна
+        frame.setTitle("Lab7"); //заголовок окна
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //��������� 1 ��� �����
+        //создаем один ряд данных
         XYSeries series = new XYSeries("Exact value");
         XYSeries series1 = new XYSeries("Runge-Kutta");
         XYSeries series2 = new XYSeries("Adams");
-        //������� ����� �� �������
+        //добавляем точки на график
         double h = Runge_Kutta.getH();
         double j = PI;
         for(int i=0; i<Runge_Kutta.getN();i++)
@@ -43,46 +43,44 @@ public class SimpleXYChart {
             j+=0.1;
         }
 
-// ����� � ������� ��� � ����� �����
+// сразу же добавим ряд в набор данных
         XYSeriesCollection data = new XYSeriesCollection(series);
         data.addSeries(series1);
         data.addSeries(series2);
 
 
-//��������� ��������
+// создаем диаграмму
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Solutions", //��������� ��������
-                "X",  //����� ��� X
-                "Y",  //����� ��� Y
-                data,//����
-                PlotOrientation.VERTICAL, //����������
-                true, // �������� �������
-                true, //��������
+                "Solutions", //Название диаграммы
+                "X",  //Подпись оси X
+                "Y",  //Подпись оси Y
+                data,//данные
+                PlotOrientation.VERTICAL, //ориентация
+                true, //включить легенду
+                true, //подсказки
                 false // urls
         );
 
-        //��������� ������ ��� �������
+        //создаем панель для графика
         final ChartPanel chartPanel = new ChartPanel(chart);
-        //������������ ������ �������� (����� ����� ������������ �������� JFreeChart �����)
+        //устанавливаем размер диаграммы (можна также воспользоваться методами JFreeChart этого)
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        //������� ������ �� ��������� ���� �����
+        //добавляем панель на созданный фрейм
         frame.setContentPane(chartPanel);
-        //���������� ������� ������
+        //подгоняем размеры фрейма
         frame.pack();
-        //������ ��� �������
+        //делаем все видимым
         frame.setVisible(true);
     }
 
     public static void Draw2(double[] Er1, double[] Er2) {
 
-        JFrame frame = new JFrame(); //��������� ������ �����
-        frame.setTitle("Lab7"); //��������� �����
+        JFrame frame = new JFrame();
+        frame.setTitle("Lab7");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //��������� 1 ��� �����
         XYSeries series = new XYSeries("Errors Runge-Kutta");
         XYSeries series1 = new XYSeries("Errors Adams");
-        //������� ����� �� �������
         double h = Runge_Kutta.getH();
         double j = 0.001;
 
@@ -103,32 +101,25 @@ public class SimpleXYChart {
 
 
 
-// ����� � ������� ��� � ����� �����
         XYSeriesCollection data = new XYSeriesCollection(series);
         data.addSeries(series1);
 
 
-//��������� ��������
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Errors", //��������� ��������
-                "h",  //����� ��� X
-                "Y",  //����� ��� Y
-                data,//����
-                PlotOrientation.VERTICAL, //����������
-                true, // �������� �������
-                true, //��������
-                false // urls
+                "Errors",
+                "h",
+                "Y",
+                data,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
         );
 
-        //��������� ������ ��� �������
         final ChartPanel chartPanel = new ChartPanel(chart);
-        //������������ ������ �������� (����� ����� ������������ �������� JFreeChart �����)
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        //������� ������ �� ��������� ���� �����
         frame.setContentPane(chartPanel);
-        //���������� ������� ������
         frame.pack();
-        //������ ��� �������
         frame.setVisible(true);
     }
 }
